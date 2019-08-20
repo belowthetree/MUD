@@ -1,3 +1,7 @@
 ﻿  Charactor_Ctl.cpp
-H:\代码\VSProject\MUD\Charactor_Ctl.cpp(31): warning C4018: “<”: 有符号/无符号不匹配
-  MUD.vcxproj -> H:\代码\VSProject\MUD\Debug\MUD.exe
+  Fight.cpp
+E:\新建文件夹 (2)\MUD\Fight.h(19,21): warning C4200:  使用了非标准扩展: 结构/联合中的零大小数组
+  Skill.cpp
+  正在生成代码...
+E:\新建文件夹 (2)\MUD\Fight.h(19,21): message :  默认构造函数或 copy/move 赋值运算符将忽略此成员
+  MUD.vcxproj -> E:\新建文件夹 (2)\MUD\Debug\MUD.exe
