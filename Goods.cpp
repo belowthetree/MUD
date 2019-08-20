@@ -2,8 +2,9 @@
 
 
 
-Goods::Goods()
+Goods::Goods(string name)
 {
+	this->name = name;
 }
 
 

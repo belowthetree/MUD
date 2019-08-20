@@ -10,7 +10,7 @@ public:
 
 	string name;
 
-	Goods();
+	Goods(string name);
 	~Goods();
 };
 
