@@ -10,4 +10,5 @@ Goods::Goods(string name)
 
 Goods::~Goods()
 {
+
 }

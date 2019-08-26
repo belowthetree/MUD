@@ -15,7 +15,6 @@ public:
 	bool GetDamge(int damage);	// 接收一个伤害数值，返回false表示死亡，否则返回true
 	void Daily_Recovery();		// 每天会回复最大生命值的百分比
 	
-
 	Charactor_Ctl();
 	~Charactor_Ctl();
 };
