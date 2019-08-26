@@ -27,9 +27,6 @@
     <ClCompile Include="Skill.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Fight.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Charactor_Ctl.h">
@@ -39,9 +36,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Skill.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Fight.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
