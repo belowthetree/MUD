@@ -45,6 +45,7 @@ public:
 	void DeleteCarried(int id);		// 扔掉装备
 	bool PutOffCarried(int id);		// 脱掉装备放包里
 	void ShowCarried();				// 显示穿着的物品
+	bool Die();						// 判断是否死亡
 
 	Charactor_Ctl(Work work, int xp = 0, int mMagic = 100, int level = 1, int money = 100, int mHP = 100);
 	~Charactor_Ctl();

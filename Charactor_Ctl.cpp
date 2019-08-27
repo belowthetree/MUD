@@ -1,16 +1,20 @@
 #include "Charactor_Ctl.h"
 
-// 受伤，返回true表示死亡
-bool Charactor_Ctl::GetDamge(int damage)
+// 死亡
+bool Charactor_Ctl::Die()
 {
-	HP -= damage;
-	if (HP > 0)
+	if (HP < 0)
 		return true;
 	else
 		return false;
 }
+// 受伤，返回false表示死亡
+bool Charactor_Ctl::GetDamge(int damage)
+{
+	HP -= damage;
+}
 
-// 每天回复一定的血量
+// 回复 10% 的血量、魔法
 void Charactor_Ctl::Daily_Recovery()
 {
 	HP = HP + maxHP / 10;
@@ -129,6 +133,7 @@ void Charactor_Ctl::ShowCarried()
 		cout << i + 1 << ". " << carried[i].name << endl;
 	}
 }
+
 
 // 设定初始值
 Charactor_Ctl::Charactor_Ctl(Work work, int xp, int mMagic, int level, int money, int mHP)

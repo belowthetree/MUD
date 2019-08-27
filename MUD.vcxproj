@@ -155,11 +155,13 @@
     <ClCompile Include="Goods.cpp" />
     <ClCompile Include="MUD.cpp" />
     <ClCompile Include="Skill.cpp" />
+    <ClCompile Include="Store.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Charactor_Ctl.h" />
     <ClInclude Include="Goods.h" />
     <ClInclude Include="Skill.h" />
+    <ClInclude Include="Store.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

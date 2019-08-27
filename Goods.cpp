@@ -1,7 +1,5 @@
 #include "Goods.h"
 
-
-
 Goods::Goods(string name, int power, int defense, int speed, int value)
 {
 	this->name = name;
