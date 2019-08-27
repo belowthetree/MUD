@@ -31,7 +31,7 @@ bool Store::SellGoods(Charactor_Ctl& player, int id)
 	if (id <= 0 || id > player.goods.size())
 	{
 		cout << "请输入正确的编号" << endl;
-		return;
+		return false;
 	}
 	for (vector<Goods>::iterator i = player.goods.begin(); i != player.goods.end(); i++)
 	{

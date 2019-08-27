@@ -9,7 +9,7 @@ bool Charactor_Ctl::Die()
 		return false;
 }
 // 受伤，返回false表示死亡
-bool Charactor_Ctl::GetDamge(int damage)
+void Charactor_Ctl::GetDamge(int damage)
 {
 	HP -= damage;
 }

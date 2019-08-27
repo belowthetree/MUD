@@ -33,7 +33,7 @@ public:
 	// 拥有的物品
 	vector<Goods> goods;
 	
-	bool GetDamge(int damage);		// 接收一个伤害数值，返回false表示死亡，否则返回true
+	void GetDamge(int damage);		// 接收一个伤害数值，返回false表示死亡，否则返回true
 	void Daily_Recovery();			// 每天会回复最大生命值的百分比
 	bool AddGoods(Goods good);		// 给人物添加物品
 	void ShowGoods();				// 显示物品

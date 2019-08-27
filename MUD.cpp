@@ -2,10 +2,31 @@
 //
 
 #include <iostream>
+#include<fstream>
+#include<string>
+
+using namespace std;
+
+void Read()
+{
+	ifstream in("save/AllGoods.txt",ios::in);
+	char tmp[4];
+	int cnt = 0;
+	while (in.get(tmp[cnt++]))
+	{
+		if (cnt % 3 == 2)
+		{
+			tmp[cnt] = '\0';
+			cnt = 0;
+			cout << tmp;
+		}
+	}
+	in.close();
+}
 
 int main()
 {
-    std::cout << "Hello World!\n"; 
+	Read();
 }
 
 // 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单

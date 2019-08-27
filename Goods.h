@@ -5,7 +5,9 @@ using namespace std;
 enum Type
 {
 	Defense,
-	Attack
+	Attack,
+	Cloth,
+	Shoes,
 };
 class Goods
 {
