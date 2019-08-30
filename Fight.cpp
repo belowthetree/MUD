@@ -7,14 +7,14 @@
 #include <string>
 using namespace std;
 
-Fight::Fight(Charactor_Ctl player, vector<Charactor_Ctl>Enemy, int n) {
+Fight::Fight(Charactor_Ctl & player, vector<Charactor_Ctl>Enemy, int n) {
 	pPlayer = player;
 	pEnemy = Enemy;
 	N = n;
 
 	sort(Enemy.begin(), Enemy.begin()+n);
 	oActSlot[0].nRoleID = pPlayer.ID;
-	oActSlot[0].nSpeed = pPlayer.Speed;
+	oActSlot[0].nSpeed = pPlayer.speed;
 
 	for(int i=1; i<=n; i++){
 		oActSlot[n].nRoleID = pEnemy[n].ID;
@@ -25,16 +25,16 @@ Fight::Fight(Charactor_Ctl player, vector<Charactor_Ctl>Enemy, int n) {
 
 short Fight::DecideWhoAct(int i) {
 		if (oActSlot[0].nSpeed >= oActSlot[i].nSpeed) {
-			oActSlot[i].nSpeed += pEnemy[i].Speed;
+			oActSlot[i].nSpeed += pEnemy[i].speed;
 			return 1;
 		}
 		else {
-			oActSlot[0].nSpeed += pPlayer.Speed;
+			oActSlot[0].nSpeed += pPlayer.speed;
 			return 2;
 		}
 }//敏捷低的角色在进行完谁先攻击判定后再将敏捷翻倍，所以下一击一定是原来敏捷低的角色的攻击 
 
-bool IfUseSkill(Charactor_Ctl oRole) {
+bool Fight::IfUseSkill(Charactor_Ctl oRole) {
 	cout << "是否使用技能\n   Y/N \n";
 	char choice;
 	cin >> choice;
@@ -45,11 +45,11 @@ bool IfUseSkill(Charactor_Ctl oRole) {
 		return false;
 	
 }
-short Battle(Charactor_Ctl player, vector<Charactor_Ctl>Enemy, int n) {
+short Fight::Battle(Charactor_Ctl player, vector<Charactor_Ctl>Enemy, int n) {
 	int k = 0;
 	for (int j = 1; j <= n; j++)
 	{
-		k = DecideWhoAct(int j);
+		k = DecideWhoAct(j);
 		if (k == 1)
 		{
 			if (IfUseSkill(player))
@@ -71,7 +71,7 @@ short Battle(Charactor_Ctl player, vector<Charactor_Ctl>Enemy, int n) {
 	
 }
 //攻击敌人
-short Damage1(Charactor_Ctl player, vector<Charactor_Ctl>Enemy, int n) {
+short Fight::Damage1(Charactor_Ctl player, vector<Charactor_Ctl>Enemy, int n) {
 	short nAtk = player.power;
 	short nDef = Enemy[n].defense;
 	if (nAtk > nDef)
@@ -80,7 +80,7 @@ short Damage1(Charactor_Ctl player, vector<Charactor_Ctl>Enemy, int n) {
 		return rand() % 3;
 }
 //被敌人攻击
-short Damage2(Charactor_Ctl player, vector<Charactor_Ctl>Enemy, int n) {
+short Fight::Damage2(Charactor_Ctl player, vector<Charactor_Ctl>Enemy, int n) {
 	short nAtk = Enemy[n].power;
 	short nDef = player.defense;
 	if (nAtk > nDef)

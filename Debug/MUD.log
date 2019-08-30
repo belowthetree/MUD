@@ -1,3 +1,7 @@
-﻿  Charactor_Ctl.cpp
-H:\代码\VSProject\MUD\Charactor_Ctl.cpp(31): warning C4018: “<”: 有符号/无符号不匹配
-  MUD.vcxproj -> H:\代码\VSProject\MUD\Debug\MUD.exe
+﻿  Store.cpp
+F:\代码\VSProject\MUD\Store.cpp(10,20): warning C4018:  “<”: 有符号/无符号不匹配
+F:\代码\VSProject\MUD\Store.cpp(17,20): warning C4018:  “>”: 有符号/无符号不匹配
+F:\代码\VSProject\MUD\Store.cpp(37,20): warning C4018:  “>”: 有符号/无符号不匹配
+F:\代码\VSProject\MUD\Store.cpp(32): warning C4715:  “Store::BuyGoods”: 不是所有的控件路径都返回值
+F:\代码\VSProject\MUD\Store.cpp(51): warning C4715:  “Store::SellGoods”: 不是所有的控件路径都返回值
+  MUD.vcxproj -> F:\代码\VSProject\MUD\Debug\MUD.exe

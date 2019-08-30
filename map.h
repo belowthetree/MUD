@@ -1,8 +1,12 @@
+#pragma once
 #include<iostream>
 #include<windows.h>
 #include<string.h>
 #include"global.h"
+
 using namespace std;
+
+// 打印地图
 void mapprint()
 {
 	cout << "等级/路程           ----->琅琊群山-----             -->武当山---             " << endl;
@@ -14,7 +18,9 @@ void mapprint()
 	cout << "                    -->天泉山庄-->槐都-             -->百草药谷-               "<< endl;
 	cout << "                         (4/3)   (5/4)                 (8/5)                  " << endl;
 }
+// 保存
 void save() {}
+// 加载
 void load() {}
 void adventure(int a, int b)
 {

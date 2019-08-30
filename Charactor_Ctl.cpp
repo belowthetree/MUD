@@ -1,4 +1,5 @@
 #include "Charactor_Ctl.h"
+#include"Store.h"
 
 // 死亡
 bool Charactor_Ctl::Die()
@@ -8,8 +9,21 @@ bool Charactor_Ctl::Die()
 	else
 		return false;
 }
+// 经验上升
+void Charactor_Ctl::AddXP(int xp)
+{
+	this->XP += xp;
+	if (XP > level * 20)
+	{
+		power += work == Sword ? level * 2 : level * 1;	// 相对应的职业增加更多
+		speed += work == Shoot ? level * 2 : level * 1;
+		defense += work == Warrior ? level * 2 : level * 1;
+		level++;
+		XP = 0;
+	}
+}
 // 受伤，返回false表示死亡
-bool Charactor_Ctl::GetDamge(int damage)
+void Charactor_Ctl::GetDamge(int damage)
 {
 	HP -= damage;
 }
@@ -36,14 +50,26 @@ bool Charactor_Ctl::AddGoods(Goods good)
 // 显示物品列表
 void Charactor_Ctl::ShowGoods()
 {
+	if (goods.size() == 0)
+	{
+		cout << "无物品" << endl;
+		return;
+	}
+	cout << "名字，力量，防御，敏捷，价值" << endl;
 	for (int i = 0; i < goods.size(); i++)
-		cout << i + 1 << ". " << goods[i].name << endl;
+		cout << i + 1 << ". " << goods[i].name << "," << goods[i].power << "," <<
+		goods[i].defense << "," << goods[i].speed << "," << goods[i].value << endl;
 }
 
 // 用于删除某个物品，成功则返回true，否则false
 bool Charactor_Ctl::DeleteGoods(int i)
 {
-	int cnt = 0;
+	int cnt = 1;
+	if (i < 1 || i > goods.size())
+	{
+		cout << "请输入正确的编号" << endl;
+		return false;
+	}
 	for(vector<Goods>::iterator it = goods.begin();it != goods.end();it++)
 		if (cnt++ == i)
 		{
@@ -98,7 +124,12 @@ bool Charactor_Ctl::AddCarried(Goods good)
 
 void Charactor_Ctl::DeleteCarried(int id)
 {
-	int cnt = 0;
+	int cnt = 1;
+	if (id < 1 || id > goods.size())
+	{
+		cout << "请输入正确的编号" << endl;
+		return;
+	}
 	for (vector<Goods>::iterator it = carried.begin(); it != carried.end(); it++)
 	{
 		if (cnt++ == id)
@@ -128,9 +159,16 @@ bool Charactor_Ctl::PutOffCarried(int id)
 
 void Charactor_Ctl::ShowCarried()
 {
+	if (carried.size() == 0)
+	{
+		cout << "无物品" << endl;
+		return;
+	}
+	cout << "名字，力量，防御，敏捷，价值" << endl;
 	for (int i = 0; i < carried.size(); i++)
 	{
-		cout << i + 1 << ". " << carried[i].name << endl;
+		cout << i + 1 << ". " << carried[i].name <<","<< carried[i].power << "," <<
+			carried[i].defense << "," << carried[i].speed << "," << carried[i].value << endl;
 	}
 }
 
@@ -169,8 +207,29 @@ Charactor_Ctl::Charactor_Ctl(Work work, int xp, int mMagic, int level, int money
 	this->level = level;
 	this->money = money;
 	maxCarried = 10;
+	this->work = work;
+	//ID = 0;
 }
 
+Charactor_Ctl::Charactor_Ctl(int level)
+{
+	this->work = Enemy;
+	this->level = level;
+	this->XP = level * 4;
+	this->money = 10 + level * level * 4 + rand() % (level * 4);
+	this->HP = this->maxHP = 50 + level * level * 2;
+	this->power = level * 3 + rand() % level;
+	this->defense = level * 3 + rand() % level;
+	this->speed = level * 3 + rand() % level;
+	if (rand() % 5 == 0)
+	{
+		Store store(level);
+		this->carried.push_back(store.BuyGoods(rand() % store.goods.size() + 1));
+	}
+	magic = 0;
+	maxCarried = 1;
+	maxMagic = 0;
+}
 
 Charactor_Ctl::~Charactor_Ctl()
 {
