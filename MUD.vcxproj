@@ -152,14 +152,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Charactor_Ctl.cpp" />
+    <ClCompile Include="Event.cpp" />
     <ClCompile Include="Goods.cpp" />
+    <ClCompile Include="map.cpp" />
     <ClCompile Include="MUD.cpp" />
     <ClCompile Include="Skill.cpp" />
     <ClCompile Include="Store.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Charactor_Ctl.h" />
+    <ClInclude Include="Event.h" />
+    <ClInclude Include="global.h" />
     <ClInclude Include="Goods.h" />
+    <ClInclude Include="map.h" />
     <ClInclude Include="Skill.h" />
     <ClInclude Include="Store.h" />
   </ItemGroup>

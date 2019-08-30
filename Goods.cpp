@@ -1,7 +1,8 @@
 #include "Goods.h"
 
-Goods::Goods(string name, int power, int defense, int speed, int value)
+Goods::Goods(Type type, string name, int power, int defense, int speed, int value)
 {
+	this->type = type;
 	this->name = name;
 	this->power = power;
 	this->defense = defense;

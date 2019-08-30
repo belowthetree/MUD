@@ -1,41 +1,67 @@
-﻿// MUD.cpp : 此文件包含 "main" 函数。程序执行将在此处开始并结束。
-//
-
-#include <iostream>
+﻿#include <iostream>
+#include <string>
+#include<vector>
 #include<fstream>
-#include<string>
+#include"Goods.h"
+#include"Charactor_Ctl.h"
+#include"Store.h"
+#include<conio.h>
 
 using namespace std;
 
-void Read()
+// Work work, int xp = 0, int mMagic = 100, int level = 1, int money = 100, int mHP = 100
+Charactor_Ctl player(Sword);
+// 传入地点等级（1 - 5）
+Store store(3);
+
+void Instruct()
 {
-	ifstream in("save/AllGoods.txt",ios::in);
-	char tmp[4];
-	int cnt = 0;
-	while (in.get(tmp[cnt++]))
+	char ins;
+	cout << "1. 出示装备的物品；2. 出示背包物品；3. 出示商品；" <<
+		"4. 买装备并装上；5. 买装备并放包里；6. 删除着装；7. 删除背包；" << endl;
+
+	while (cin >> ins)
 	{
-		if (cnt % 3 == 2)
+		int tmp;
+		switch (ins)
 		{
-			tmp[cnt] = '\0';
-			cnt = 0;
-			cout << tmp;
+		case '1':
+			player.ShowCarried();
+			break;
+		case '2':
+			player.ShowGoods();
+			break;
+		case '3':
+			store.ShowGoods();
+			break;
+		case '4':
+			store.ShowGoods();
+			cin >> tmp;
+			player.AddCarried(store.BuyGoods(tmp));
+			break;
+		case '5':
+			store.ShowGoods();
+			cin >> tmp;
+			player.AddGoods(store.BuyGoods(tmp));
+			break;
+		case '6':
+			player.ShowCarried();
+			cin >> tmp;
+			player.DeleteCarried(tmp);
+			break;
+		case '7':
+			player.ShowGoods();
+			cin >> tmp;
+			player.DeleteGoods(tmp);
+			break;
+		default:
+			break;
 		}
 	}
-	in.close();
 }
 
 int main()
 {
-	Read();
+	Instruct();
+	return 0;
 }
-
-// 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单
-// 调试程序: F5 或调试 >“开始调试”菜单
-
-// 入门提示: 
-//   1. 使用解决方案资源管理器窗口添加/管理文件
-//   2. 使用团队资源管理器窗口连接到源代码管理
-//   3. 使用输出窗口查看生成输出和其他消息
-//   4. 使用错误列表窗口查看错误
-//   5. 转到“项目”>“添加新项”以创建新的代码文件，或转到“项目”>“添加现有项”以将现有代码文件添加到项目
-//   6. 将来，若要再次打开此项目，请转到“文件”>“打开”>“项目”并选择 .sln 文件

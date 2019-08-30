@@ -20,7 +20,7 @@ public:
 
 	string name;
 
-	Goods(string name, int power, int defense, int speed, int value);
+	Goods(Type type, string name, int power, int defense, int speed, int value);
 	~Goods();
 };
 

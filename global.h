@@ -38,22 +38,22 @@ place("燕王府",9,3,"你来到了燕王府，这是燕王的封地。但最近燕王蠢蠢欲动，意欲谋反
 place("百草药谷",8,5,"你来到了百草药谷，这里有多种毒物和猛兽。传说有妖物出没。"),
 place("京城",10,1,"你来到了京城，目的地就在眼前，但你觉得事情远没有那么简单......"),
 };
-class Goods
-{
-public:
-	string name;
-	int type;
-	int power;
-	int defense;
-	int value;
-	Goods(string a):name(a){}
-};
-vector<Goods>bag;
-void bagshow()
-{
-	cout << "\t类型\t攻击\t防御\t价格" << endl;
-	for (int i = 0;i<=bag.size();i++)
-	{
-		cout << i + 1 << '.' << bag[i].name << bag[i].type << '\t' << bag[i].power<< '\t' << bag[i].defense << '\t' << '\t' << bag[i].value << '\t' << endl;
-	}
-}
+//class Goods
+//{
+//public:
+//	string name;
+//	int type;
+//	int power;
+//	int defense;
+//	int value;
+//	Goods(string a):name(a){}
+//};
+//vector<Goods>bag;
+//void bagshow()
+//{
+//	cout << "\t类型\t攻击\t防御\t价格" << endl;
+//	for (int i = 0;i<=bag.size();i++)
+//	{
+//		cout << i + 1 << '.' << bag[i].name << bag[i].type << '\t' << bag[i].power<< '\t' << bag[i].defense << '\t' << '\t' << bag[i].value << '\t' << endl;
+//	}
+//}

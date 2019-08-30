@@ -19,6 +19,8 @@ public:
 	int XP;
 	int money;
 	int maxCarried;
+	Work work;
+	//int ID;						// 身份标志
 
 #pragma region 属性
 	int HP;
@@ -46,8 +48,10 @@ public:
 	bool PutOffCarried(int id);		// 脱掉装备放包里
 	void ShowCarried();				// 显示穿着的物品
 	bool Die();						// 判断是否死亡
+	void AddXP(int xp);				// 增加经验
 
 	Charactor_Ctl(Work work, int xp = 0, int mMagic = 100, int level = 1, int money = 100, int mHP = 100);
+	Charactor_Ctl(int level);
 	~Charactor_Ctl();
 };
 
