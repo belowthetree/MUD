@@ -22,12 +22,20 @@ void Charactor_Ctl::AddXP(int xp)
 		XP = 0;
 	}
 }
+void Charactor_Ctl::ShowSelf()
+{
+	cout << "初始力量:" << power << endl
+		<< "初始防御:" << defense << endl
+		<< "初始敏捷" << speed << endl
+		<< "总力量:" << Charactor_Ctl::GetPower() << endl
+		<< "总防御:" << Charactor_Ctl::GetDefense() << endl
+		<< "总敏捷:" << Charactor_Ctl::GetSpeed() << endl;
+}
 // 受伤，返回false表示死亡
 void Charactor_Ctl::GetDamge(int damage)
 {
 	HP -= damage;
 }
-
 // 回复 10% 的血量、魔法
 void Charactor_Ctl::Daily_Recovery()
 {

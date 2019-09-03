@@ -35,6 +35,8 @@ public:
 	// 拥有的物品
 	vector<Goods> goods;
 	
+#pragma region 接口集合
+
 	void GetDamge(int damage);		// 接收一个伤害数值，返回false表示死亡，否则返回true
 	void Daily_Recovery();			// 每天会回复最大生命值的百分比
 	bool AddGoods(Goods good);		// 给人物添加物品
@@ -49,6 +51,10 @@ public:
 	void ShowCarried();				// 显示穿着的物品
 	bool Die();						// 判断是否死亡
 	void AddXP(int xp);				// 增加经验
+	void ShowSelf();				// 展示状态
+
+#pragma endregion
+
 
 	Charactor_Ctl(Work work, int xp = 0, int mMagic = 100, int level = 1, int money = 100, int mHP = 100);
 	Charactor_Ctl(int level);
