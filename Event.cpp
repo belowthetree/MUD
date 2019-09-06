@@ -1,53 +1,186 @@
 #include "Event.h"
 #include"Charactor_Ctl.h"
+#include"Display.h"
+#include<algorithm>
+#include<Windows.h>
+#include"Input.h"
+#include"Store.h"
 
-int Event::GetLevel(int level, Charactor_Ctl & player)
+
+bool Sort(Enemy_Ctl c1, Enemy_Ctl c2)
 {
-	rexp = level * 5;
-	rgold = level * 5;
-	player.XP += rexp;
-	player.money += rgold;
-	return 0;
+	return c1.GetSpeed() > c2.GetSpeed();
 }
 
-short Event::Reward(Charactor_Ctl & player) {
-	if (player.HP > 0){
-		cout << "战斗结束，你获得了" << rexp << "经验," << rgold << "个金币。" << endl;
-	}	
-	return 0;
+void Wait()
+{
+	cout << ">>>>>>继续>>>>>>";
+	char c;
+	cin >> c;
 }
 
-// 此段意义不明
-/*short Event::randreward(){
-	if (Charactor_Ctl().HP > 0) {
-		int main(int argc, char* argv[]);
-		srand((unsigned)time(nullptr)); //srand()函数产生一个以当前时间开始的随机种子
-		int y = rand() % 100;
-		if (y > 79)
-			printf("触发额外奖励，你获得了一件");
+// 逃跑判断
+bool Run()
+{
+	if (rand() % 20 == 0)
+	{
+		cout << "逃跑成功" << endl;
+		Wait();
+		return true;
 	}
-	return 0;
-}*/
-
-vector<Charactor_Ctl> Event::EnemyCreate(int level)
-{
-	vector<Charactor_Ctl> enemy;
-	int num = rand() % 3 + 1;
-	// Work work, int xp = 0, int mMagic = 100, int level = 1, int money = 100, int mHP = 100（这是人物类默认构造函数
-	for (int i = 0; i < num; i++)
-		enemy.push_back(Charactor_Ctl(level));
-	return vector<Charactor_Ctl>();
+	else
+	{
+		cout << "逃跑失败" << endl;
+		Wait();
+		return false;
+	}
 }
 
-Event::Event(Charactor_Ctl & player, int level) {
-	int main(int argc, char* argv[]);
-	srand((unsigned)time(0)); //srand()函数产生一个以当前时间开始的随机种子
-	int x = rand() % 3;
-	switch (x) {
-	case 0: printf("你遇到了一波野怪"); Event::Reward(player); /*Event::randreward();*/ break;
-	case 1: printf("你遇到了一伙强盗"); Event::Reward(player); /*Event::randreward();*/ break;
-	case 2: printf("无事发生"); break;
+// false. 失败 true. 胜利
+bool Event::Fight(Charactor_Ctl* player, vector<Enemy_Ctl> enemis)
+{
+	int index = 0;
+	int die = 0;
+	sort(enemis.begin(), enemis.end(), Sort);
+	while (die != enemis.size())
+	{
+		if (enemis[index].Die())	// 判断当前对手是否活着
+		{
+			die++;
+			index++;
+			index = index >= enemis.size() ? 0 : index;
+			continue;
+		}
+		die = 0;
+		Display::Fight(player, enemis, index);
+		// 判断先手
+		if (enemis[index].GetSpeed() > enemis[index].GetSpeed())
+		{
+			cout << "敌方先手" << endl;
+			Wait();
+			player->GetDamge(enemis[index].GetPower() * 2);
+			// 判断玩家是否死亡
+			if (player->Die())
+			{
+				cout << "你的血量已空，你失败了" << endl;
+				Wait();
+				enemis.clear();
+				return false;
+			}
+			// 接收输入
+			int result = Input::PreFight();
+			if (result == 1) // 判断逃跑
+			{
+				if (Run())
+					return true;
+				continue;
+			}
+			// 技能
+			else
+			{
+				// 1.普攻 2.跳斩 3.突刺 4.震撼击
+				result = Input::Fight();
+				int damage = player->Attack(result);
+				enemis[index].GetDamge(damage);
+				if (enemis[index].Die())
+				{
+					cout << "对方已死亡" << endl;
+					this->Reward(player, enemis[index]);
+				}
+				Wait();
+			}
+		}
+		else // 先手
+		{
+			cout << "你获得了先手" << endl;
+			int result = Input::PreFight();
+			// 判断逃跑
+			if (result == 1)
+			{
+				if (Run())
+					return true;
+			}
+			// 判断技能
+			else
+			{
+				// 1.普攻 2.跳斩 3.突刺 4.震撼击
+				result = Input::Fight();
+				int damage = player->Attack(result);
+				enemis[index].GetDamge(damage);
+				if (enemis[index].Die())
+				{
+					cout << "对方已死亡" << endl;
+					this->Reward(player, enemis[index]);
+					Wait();
+					continue;
+				}
+			}
+			player->GetDamge(enemis[index].GetPower() * 2);
+			Wait();
+			if (player->Die())
+			{
+				cout << "你的血量已空，你失败了" << endl;
+				Wait();
+				enemis.clear();
+				return false;
+			}
+		}
+		index++;
+		index = index >= enemis.size() ? 0 : index;
+	}
 
+	return 0;
+}
+
+void Event::Reward(Charactor_Ctl* player, Enemy_Ctl enemy)
+{
+	Store store(level);
+	Goods tmp = store.ReturnGoods();
+	cout << "你获得了一件物品：" << endl
+		<< tmp.name << " 力量：" << tmp.power << "防御：" << tmp.defense << "敏捷：" << tmp.speed << "价值：" << tmp.value << endl;
+
+	while (player->goods.size() >= player->maxCarried)
+	{
+		cout << "背包已满，请整理背包" << endl;
+		player->Clean();
+	}
+	player->AddGoods(tmp);
+	cout << "你获得了" << enemy.money << "金币" << endl;
+	Sleep(500);
+	cout << "你获得了" << enemy.XP << "经验" << endl;
+	Sleep(500);
+	player->AddXP(enemy.XP);
+	player->money += enemy.money;
+}
+
+Event::Event(Charactor_Ctl * player, int level, bool bos, int index, Enemy_Ctl boss[], Enemy_Ctl enemis[])
+{
+	system("cls");
+	this->level = level;
+	int type = rand() % 3;
+	if (type == 0 || bos)	// 1/3 的几率战斗，除了boss战
+	{
+		vector<Enemy_Ctl> enemy;
+		if (bos)
+		{
+			enemy.push_back(boss[index]);
+		}
+		else
+		{
+			int num = rand() % 3 + 1;
+			while (num-- > 0)
+			{
+				enemy.push_back(enemis[index*2 + rand() % 2]);
+			}
+		}
+		cout << enemy[0].des << endl;
+		Wait();
+		Fight(player, enemy);
+		cout << "战斗结束" << endl;
+	}
+	else
+	{
+		cout << "今日无事发生，距离任务结束又近了一天" << endl;
 	}
 }
 Event::~Event()

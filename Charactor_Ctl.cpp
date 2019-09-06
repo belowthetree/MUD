@@ -1,14 +1,23 @@
 #include "Charactor_Ctl.h"
 #include"Store.h"
 
+Skill Skills[] = {
+	Skill("普攻", 0, 0, 0, 0),
+	Skill("烈火刀", 5, 1, 2, 20),
+	Skill("暗影突击", 1, 1, 5, 20),
+	Skill("盾击", 2, 0, 5, 20)
+};
+
+
 // 死亡
 bool Charactor_Ctl::Die()
 {
-	if (HP < 0)
+	if (HP <= 0)
 		return true;
 	else
 		return false;
 }
+
 // 经验上升
 void Charactor_Ctl::AddXP(int xp)
 {
@@ -22,23 +31,137 @@ void Charactor_Ctl::AddXP(int xp)
 		XP = 0;
 	}
 }
+
+// 展示状态
 void Charactor_Ctl::ShowSelf()
 {
-	cout << "初始力量:" << power << endl
-		<< "初始防御:" << defense << endl
-		<< "初始敏捷" << speed << endl
-		<< "总力量:" << Charactor_Ctl::GetPower() << endl
-		<< "总防御:" << Charactor_Ctl::GetDefense() << endl
-		<< "总敏捷:" << Charactor_Ctl::GetSpeed() << endl;
+	cout
+		<< "生命值：" << HP << "/" << maxHP << endl
+		<< "精力值：" << magic << "/" << maxMagic << endl
+		<< "初始力量：" << power << endl
+		<< "初始防御：" << defense << endl
+		<< "初始敏捷：" << speed << endl
+		<< "总力量：" << Charactor_Ctl::GetPower() << endl
+		<< "总防御：" << Charactor_Ctl::GetDefense() << endl
+		<< "总敏捷：" << Charactor_Ctl::GetSpeed() << endl;
 }
-// 受伤，返回false表示死亡
+
+// 攻击
+int Charactor_Ctl::Attack(int id)
+{
+	if (id == 1)
+		cout << "你使用了普通攻击" << endl;
+	else
+	{
+		cout << "你使用了" << skills[id].name << endl;
+		magic -= skills[id].cost;
+	}
+	switch (work)
+	{
+	case Sword:
+		return skills[id].power + this->GetPower();
+	case Shoot:
+		return skills[id].speed + this->GetPower();
+	case Warrior:
+		return skills[id].defense + this->GetPower();
+	default:
+		break;
+	}
+	return 0;
+}
+
+// 整理物品、装备
+void Charactor_Ctl::Clean()
+{
+	char c;
+	cout << "背包：" << endl;
+	this->ShowGoods();
+	cout << "装备" << endl;
+	this->ShowCarried();
+	cout << "1.扔掉装备 2.扔掉物品 3.装备物品 4.卸下装备 5.退出" << endl;
+
+	while (cin >> c)
+	{
+		system("cls");
+		int t;
+		if (c == '1')
+		{
+			ShowCarried();
+			cin >> t;
+			DeleteCarried(t);
+		}
+		else if (c == '2')
+		{
+			cout << "0. 取消" << endl;
+			ShowGoods();
+			do
+			{
+				cin >> t;
+				if (t == 0)
+					break;
+			} while (!DeleteGoods(t));
+		}
+		else if (c == '3')
+		{
+			cout << "0. 取消" << endl;
+			ShowGoods();
+			do
+			{
+				cin >> t;
+				if (t == 0)
+					break;
+				if (t<1 || t>goods.size())
+				{
+					cout << "输入错误" << endl;
+					continue;
+				}
+			} while (!AddCarried(goods[t - 1]));
+			DeleteGoods(t);
+		}
+		else if (c == '4')
+		{
+			cout << "0. 取消" << endl;
+			ShowCarried();
+			cin >> t;
+			if (t == 0)
+				break;
+			if (t<1 || t>goods.size())
+			{
+				cout << "输入错误" << endl;
+				continue;
+			}
+			if (AddGoods(carried[t - 1]))
+				DeleteCarried(t);
+			else
+			{
+				cout << "无法把装备放进背包里" << endl;
+				continue;
+			}
+		}
+		else if (c == '5')
+			return;
+		else
+		{
+			cout << "输入错误" << endl;
+			continue;
+		}
+		break;
+	}
+}
+
+// 受伤
 void Charactor_Ctl::GetDamge(int damage)
 {
+	damage -= defense;
+	damage = damage > 0 ? damage : 0;
+	cout << name << "受到" << damage << "点伤害" << endl;
 	HP -= damage;
 }
+
 // 回复 10% 的血量、魔法
 void Charactor_Ctl::Daily_Recovery()
 {
+	cout << "经过一天的休整，你的生命和精力恢复了一些" << endl;
 	HP = HP + maxHP / 10;
 	magic = magic + maxMagic / 10;
 	HP = HP > maxHP ? maxHP : HP;
@@ -181,6 +304,8 @@ void Charactor_Ctl::ShowCarried()
 }
 
 
+
+
 // 设定初始值
 Charactor_Ctl::Charactor_Ctl(Work work, int xp, int mMagic, int level, int money, int mHP)
 {
@@ -216,7 +341,8 @@ Charactor_Ctl::Charactor_Ctl(Work work, int xp, int mMagic, int level, int money
 	this->money = money;
 	maxCarried = 10;
 	this->work = work;
-	//ID = 0;
+	for (int i = 0; i < 4; i++)
+		skills.push_back(Skills[i]);
 }
 
 Charactor_Ctl::Charactor_Ctl(int level)

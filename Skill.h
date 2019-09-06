@@ -5,10 +5,12 @@ class Skill
 {
 public:
 	string name;
-	int damage;
+	int power;
+	int defense;
+	int speed;
+	int cost;
 
-	Skill();
-	Skill(string name, int dam);
+	Skill(string name, int power, int defense, int speed, int cost);
 	~Skill();
 };
 

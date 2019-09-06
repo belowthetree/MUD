@@ -4,20 +4,18 @@
 #include <stdlib.h>
 #include "Charactor_Ctl.h"
 #include "Goods.h"
-#include "Fight.h"
+#include<vector>
+#include"Enemy_Ctl.h"
+
 using namespace std;
 
 class Event {
 public:
-	int GetLevel(int level, Charactor_Ctl & player);           //接收人物等级，决定奖励大小
-	int rexp;                          //事件奖励经验
-	int rgold;                         //事件奖励金币
-	int equipment;                     //事件奖励装备
-	short Reward(Charactor_Ctl & player);                    //固定奖励
-	//short randreward();              //随机奖励 （待修复）
+	int level;
 
-	vector<Charactor_Ctl> EnemyCreate(int level);
-
-	Event(Charactor_Ctl & player, int level);
+	bool Fight(Charactor_Ctl * player, vector<Enemy_Ctl> enemis);	// 战斗事件
+	void Reward(Charactor_Ctl* player, Enemy_Ctl enemy);		// 打死一个敌人后进行奖励
+	
+	Event(Charactor_Ctl * player, int level, bool bos, int index, Enemy_Ctl boss[], Enemy_Ctl enemis[]);
 	~Event();
 };

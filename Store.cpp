@@ -11,10 +11,16 @@ void Store::ShowGoods()
 		cout << i + 1 << ". " << goods[i].name << " 力量：" << goods[i].power << "防御：" << goods[i].defense << "敏捷：" << goods[i].speed << "价值：" << goods[i].value << endl;
 }
 
+Goods Store::ReturnGoods()
+{
+	int i = rand() % goods.size();
+	return goods[i];
+}
+
 Goods Store::BuyGoods(int id)
 {
 	int cnt = 1;
-	if (id <= 0 || id > goods.size())
+	if (id <= 1 || id > goods.size())
 	{
 		cout << "请输入正确的编号" << endl;
 		return Goods(Attack, "空物品", 0, 0, 0, 0);
@@ -44,6 +50,8 @@ bool Store::SellGoods(Charactor_Ctl& player, int id)
 		if (id == cnt++)
 		{
 			player.money += player.goods[id].value / 2;
+			Goods tmp = player.goods[id - 1];
+			this->goods.push_back(tmp);
 			player.goods.erase(i);
 			return true;
 		}

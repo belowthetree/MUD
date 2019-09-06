@@ -2,6 +2,7 @@
 #include<vector>
 #include<iostream>
 #include"Goods.h"
+#include"Skill.h"
 using namespace std;
 enum Work
 {
@@ -13,6 +14,7 @@ enum Work
 class Charactor_Ctl
 {
 public:
+	string name;
 	int maxHP;
 	int maxMagic;				// 分别是最大生命值、最大魔法值、等级、经验、经验、金钱
 	int level;
@@ -34,6 +36,8 @@ public:
 	vector<Goods> carried;
 	// 拥有的物品
 	vector<Goods> goods;
+	// 技能
+	vector<Skill> skills;
 	
 #pragma region 接口集合
 
@@ -52,6 +56,8 @@ public:
 	bool Die();						// 判断是否死亡
 	void AddXP(int xp);				// 增加经验
 	void ShowSelf();				// 展示状态
+	int Attack(int id);				// 选择技能攻击 1.普攻 2.跳斩 3.突刺 4.震撼击
+	void Clean();					// 整理
 
 #pragma endregion
 
