@@ -235,7 +235,7 @@ int main()
 		else
 			break;
 		system("cls");
-		index = 9;
+		index = 0;
 		way = 0;
 #pragma endregion
 
