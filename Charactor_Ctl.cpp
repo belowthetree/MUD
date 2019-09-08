@@ -327,12 +327,6 @@ Charactor_Ctl::Charactor_Ctl(Work work, int xp, int mMagic, int level, int money
 		power = 5;
 		speed = 5;
 	}
-	else if (work == Enemy)
-	{
-		defense = 5;
-		power = 5;
-		speed = 5;
-	}
 
 	maxMagic = magic = mMagic;
 	maxHP = HP = mHP;

@@ -5,6 +5,6 @@ class Enemy_Ctl :
 {
 public:
 	string des;
-	Enemy_Ctl(string name, int xp, int HP, int magic, int level, int money, string des);
+	Enemy_Ctl(string name, int xp, int HP, int power, int speed, int defense, int level, int money, string des);
 };
 

@@ -114,21 +114,22 @@ int Input::ChooseWork()
 	char c;
 	while (cin >> c)
 	{
-		if (c == '1')
+		result = c - '0';
+		if (result == 1)
 		{
 			result = 1;
 			cout << "恭喜你成为了一名剑客" << endl;
 			Sleep(1000);
 			BackRow(3);
 		}
-		else if (c == '2')
+		else if (c == 2)
 		{
 			result = 2;
 			cout << "恭喜你成为了一名游侠" << endl;
 			Sleep(1000);
 			BackRow(3);
 		}
-		else if (c == '3')
+		else if (c == 3)
 		{
 			result = 3;
 			cout << "恭喜你成为了一名武师" << endl;
@@ -144,7 +145,7 @@ int Input::ChooseWork()
 		}
 		break;
 	}
-	return 0;
+	return result;
 }
 
 int Input::PreFight()

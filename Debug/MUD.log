@@ -1,5 +1,5 @@
 ﻿  MUD.cpp
 F:\代码\VSProject\MUD\MUD.cpp(31,20): warning C4018:  “<”: 有符号/无符号不匹配
 F:\代码\VSProject\MUD\MUD.cpp(36,20): warning C4018:  “<”: 有符号/无符号不匹配
-F:\代码\VSProject\MUD\MUD.cpp(197,20): warning C4018:  “>”: 有符号/无符号不匹配
+F:\代码\VSProject\MUD\MUD.cpp(200,20): warning C4018:  “>”: 有符号/无符号不匹配
   MUD.vcxproj -> F:\代码\VSProject\MUD\Debug\MUD.exe

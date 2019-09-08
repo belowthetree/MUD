@@ -115,6 +115,7 @@ bool Event::Fight(Charactor_Ctl* player, vector<Enemy_Ctl> enemis)
 					continue;
 				}
 			}
+			cout << "对方想你发起了攻击" << endl;
 			player->GetDamge(enemis[index].GetPower() * 2);
 			Wait();
 			if (player->Die())

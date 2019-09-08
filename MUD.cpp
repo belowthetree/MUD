@@ -18,7 +18,7 @@ using namespace std;
 
 char ins;
 int index = 0;
-int way;
+int way = 0;
 Charactor_Ctl* player;
 
 void Save()
@@ -235,7 +235,7 @@ int main()
 		else
 			break;
 		system("cls");
-		index = 0;
+		index = 9;
 		way = 0;
 #pragma endregion
 
@@ -253,7 +253,14 @@ int main()
 #pragma region 上路
 		while (true)
 		{
-			if(way >= 2 && index == 9)
+			if (way >= 4 && index == 9)
+			{
+				cout << "恭喜你，任务已完成！" << endl;
+				cout << ">>>>>>继续>>>>>>";
+				char c;
+				cin >> c;
+				goto START;
+			}
 			if(way == 0)
 				site[index].Print();
 			// -1 表示失败,回到欢迎界面; 0 表示正常前进,但仍未走出当前地点; 1 表示走出当前地点
